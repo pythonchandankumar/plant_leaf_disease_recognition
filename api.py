@@ -8,7 +8,7 @@ import cv2
 
 app = FastAPI()
 MODEL = tf.keras.models.load_model("my_model.keras")
-CLASS_NAME = ['Early_blight', 'Late_blight', 'healthy']  # Update with actual class names
+CLASS_NAME = ['Potato_Early_blight', 'Potato_Late_blight', 'Potato_healthy']  # Update with actual class names
 
 @app.get("/")
 async def read_root():

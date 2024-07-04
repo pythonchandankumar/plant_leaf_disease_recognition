@@ -3,6 +3,8 @@ import requests
 
 # URL of the FastAPI prediction endpoint
 PREDICTION_API_URL = "http://localhost:8000/predict"
+# Set a confidence threshold
+CONFIDENCE_THRESHOLD = 0.9
 
 # Initialize the webcam
 cap = cv2.VideoCapture(0)
@@ -26,8 +28,9 @@ while True:
     predicted_class = response_data.get('predicted_class', 'Unknown')
     confidence = response_data.get('confidence', 0.0)
     
-    # Display the predicted class on the frame
-    cv2.putText(frame, f"{predicted_class}: {confidence:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    # Display the predicted class on the frame only if confidence is above the threshold
+    if confidence > CONFIDENCE_THRESHOLD:
+        cv2.putText(frame, f"{predicted_class}: {confidence:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1)
     
     # Display the resulting frame
     cv2.imshow('Webcam', frame)
